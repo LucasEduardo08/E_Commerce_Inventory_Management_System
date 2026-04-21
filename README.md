@@ -1,6 +1,6 @@
 # E-Commerce Inventory Management System
 
-This project is a simple RESTful API for managing products in an inventory system. 
+Full-stack application for managing products in an inventory system, with authentication and CRUD operations.
 
 ---
 
@@ -11,6 +11,11 @@ This project is a simple RESTful API for managing products in an inventory syste
 * JWT-based authentication
 * Input validation
 * Unit tests using Jest and Supertest
+* Product listing
+* Create, edit, and delete products
+* Navigation with React Router
+* Global state management using Context API
+* Styled UI with modular CSS
 
 ---
 
@@ -31,22 +36,31 @@ This project is a simple RESTful API for managing products in an inventory syste
 E_Commerce_Inventory_Management_System/ 
 │ 
 ├── backend/ 
-│ ├── controllers/ 
-│ ├── routes/ 
-│ ├── middleware/ 
-│ ├── database/ 
-│ │ ├── db.js 
-│ │ └── product.sql 
-│ ├── test/ 
-│ ├── app.js 
-│ ├── server.js 
-│ └── package.json 
+│   ├── controllers/ 
+│   ├── routes/ 
+│   ├── middleware/ 
+│   ├── database/ 
+│   │   ├── db.js 
+│   │   └── product.sql 
+│   ├── test/ 
+│   ├── app.js 
+│   ├── server.js 
+│   └── package.json 
 │
 ├── frontend/ 
-│ ├── public/ 
-│ ├── src/ 
-│ └── package.json 
-│ 
+│   ├── public/ 
+│   ├── src/
+│   │   ├── pages/
+│   │   │   ├── AddProductPage/
+│   │   │   ├── DeleteProductPage/
+│   │   │   ├── EditProductPage/
+│   │   │   └── HomePage/  
+│   │   ├── context/ 
+│   │   └── services/
+│   └── package.json 
+│
+├── package-lock.json
+├── package.json 
 ├── .gitignore 
 └── README.md
 ```
@@ -89,14 +103,29 @@ ADMIN_PASS=your_password_name
 
 ```
 
+Create a `.env` file in the frontend:
+```
+REACT_APP_LOCALHOST=localhost_name
+REACT_APP_ADMIN_USER=admin_name
+REACT_APP_ADMIN_PASS=password_name
+```
+
 ---
 
-### 4. Run the server
+### 4. Run the application
 
 backend:
 ```bash
-npx nodemon backend/server.js
+cd backend
+npx nodemon server.js
 ```
+frontend:
+```bash
+cd frontend
+npm start
+```
+
+* Be careful: the ports used by the backend and frontend must be different
 
 ---
 
@@ -167,7 +196,7 @@ Authorization: Bearer your_jwt_token
 
 ---
 
-## 🧪 Running Tests
+## 🧪 Running Tests (Backend)
 
 ```bash
 npm test
@@ -186,6 +215,7 @@ Tests cover:
 * The authentication system is simplified for demonstration purposes.
 * SQLite database is initialized automatically on server start.
 * Implementing endpoint testing was difficult because I hadn't done it before in a JavaScript project, but I learned how.
+* We haven't been able to implement frontend testing yet; the setup was a bit complicated.
 
 ---
 

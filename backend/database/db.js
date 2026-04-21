@@ -33,7 +33,7 @@ const dbAsync = {
 
   delete: (sql, params = []) =>
   new Promise((resolve, reject) => {
-    db.run(sql, params, (err, row) => {
+    db.run(sql, params, function (err) {
       if (err) reject(err);
       else resolve({ changes: this.changes });
     });
@@ -41,7 +41,7 @@ const dbAsync = {
 
   update: (sql, params = []) => 
   new Promise((resolve, reject) => {
-    db.run(sql, params, (err, row) => {
+    db.run(sql, params, function (err) {
       if (err) reject(err);
       else resolve({ changes: this.changes });
     });

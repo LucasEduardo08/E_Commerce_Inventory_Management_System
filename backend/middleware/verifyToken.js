@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+require("dotenv").config({ path: "../.env" });
 
 
 function auth(req, res) {
@@ -8,7 +9,7 @@ function auth(req, res) {
     return res.status(401).json({ error: "Credenciais inválidas" });
   }
 
-  const token = jwt.sign({ user: username }, "secret", { expiresIn: "1h" });
+  const token = jwt.sign({ user: username }, process.env.JWT_SECRET, { expiresIn: "1h" });
 
   res.json({ token });
 }
@@ -26,7 +27,7 @@ function authMiddleware(req, res, next) {
     jwt.verify(token, process.env.JWT_SECRET);
     next();
   } catch {
-    return res.status(401).json({ error: "Invalid token" });
+    return res.status(403).json({ error: "Invalid token" });
   }
 }
 

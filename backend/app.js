@@ -3,9 +3,11 @@ const { db, dbAsync } = require("./database/db");
 const fs = require("fs");
 const path = require("path");
 const express = require("express");
+const cors = require("cors");
 
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 
 // Start database
@@ -16,9 +18,9 @@ const productSql = fs.readFileSync(
 
 db.exec(productSql, (err) => {
   if (err) {
-    console.error("Erro ao criar tabela:", err.message);
+    console.error("Error creating table:", err.message);
   } else {
-    console.log("Tabela criada/verificada.");
+    console.log("Table created/verified.");
   }
 });
 

@@ -4,6 +4,7 @@ const app = require("../app");
 
 let token;
 
+// Authentication before testing
 beforeAll(async () => {
   const res = await request(app).post("/auth").send({
     "username": process.env.ADMIN_USER,
@@ -13,25 +14,7 @@ beforeAll(async () => {
 });
 
 
-test("GET /api/products", async () => {
-  const res = await request(app)
-    .get("/api/products")
-    .set("Authorization", `Bearer ${token}`);
-
-  expect(res.statusCode).toBe(200);
-});
-
-
-test("GET /api/products/5", async () => {
-  const res = await request(app)
-    .get("/api/products/5")
-    .set("Authorization", `Bearer ${token}`);
-
-  expect(res.statusCode).toBe(200);
-});
-
-
-test("POST /api/products", async () => {
+test("POST /api/products - should create a product", async () => {
   const res = await request(app)
     .post("/api/products")
     .set("Authorization", `Bearer ${token}`)
@@ -46,24 +29,103 @@ test("POST /api/products", async () => {
 });
 
 
-test("PUT /api/products/3", async () => {
+test("GET /api/products - should return all products", async () => {
   const res = await request(app)
-    .put("/api/products/3")
+    .get("/api/products")
+    .set("Authorization", `Bearer ${token}`);
+
+  expect(res.statusCode).toBe(200);
+});
+
+
+test("GET /api/products/1 - should return one product", async () => {
+  const res = await request(app)
+    .get("/api/products/1")
+    .set("Authorization", `Bearer ${token}`);
+
+  expect(res.statusCode).toBe(200);
+});
+
+
+test("PUT /api/products/1", async () => {
+  const res = await request(app)
+    .put("/api/products/1")
     .set("Authorization", `Bearer ${token}`)
     .send({
-      name: "Atualizado",
-      description: "Teste",
-      price: 200,
-      stock_quantity: 5
+      name: "Xbox 360 (Deluxe)",
+      description: "New Xbox 360",
+      price: 400,
+      stock_quantity: 3
     });
 
   expect(res.statusCode).toBe(200);
 });
 
 
-test("DELETE /api/products/6", async () => {
+test("GET /api/products - should fail without token", async () => {
+  const res = await request(app).get("/api/products");
+
+  expect(res.statusCode).toBe(401);
+});
+
+
+test("GET /api/products -  should fail with invalid token", async () => {
   const res = await request(app)
-    .delete("/api/products/6")
+    .get("/api/products")
+    .set("Authorization", "Bearer token_invalido");
+
+  expect(res.statusCode).toBe(403);
+});
+
+
+test("GET /api/products/9999 - should return 404", async () => {
+  const res = await request(app)
+    .get("/api/products/9999")
+    .set("Authorization", `Bearer ${token}`);
+
+  expect(res.statusCode).toBe(404);
+});
+
+
+test("POST /api/products - should fail with invalid data", async () => {
+  const res = await request(app)
+    .post("/api/products")
+    .set("Authorization", `Bearer ${token}`)
+    .send({
+      name: "",
+      price: -10
+    });
+
+  expect(res.statusCode).toBe(400);
+});
+
+
+test("PUT /api/products/9999 - should return 404", async () => {
+  const res = await request(app)
+    .put("/api/products/9999")
+    .set("Authorization", `Bearer ${token}`)
+    .send({
+      name: "Produto inexistente",
+      price: 100,
+      stock_quantity: 1
+    });
+
+  expect(res.statusCode).toBe(404);
+});
+
+
+test("DELETE /api/products/9999 - should return 404", async () => {
+  const res = await request(app)
+    .delete("/api/products/9999")
+    .set("Authorization", `Bearer ${token}`);
+
+  expect(res.statusCode).toBe(404);
+});
+
+
+test("DELETE /api/products/1 - should delete product", async () => {
+  const res = await request(app)
+    .delete("/api/products/1")
     .set("Authorization", `Bearer ${token}`);
 
   expect(res.statusCode).toBe(200);

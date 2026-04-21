@@ -1,0 +1,93 @@
+.container {
+    min-height: 100vh;
+    background-color: #f5f6fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.card {
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    width: 400px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+}
+
+.title {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #2f3640;
+    text-align: center;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.formGroup label {
+    font-size: 14px;
+    color: #353b48;
+    font-weight: 600;
+}
+
+.formGroup input {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #dcdde1;
+    outline: none;
+    transition: 0.2s;
+}
+
+.formGroup input:focus {
+    border-color: #273c75;
+}
+
+.formRow {
+    display: flex;
+    gap: 10px;
+}
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.submitButton {
+    background-color: #00a8ff;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.submitButton:hover {
+    background-color: #0097e6;
+}
+
+.cancelButton {
+    background-color: #dcdde1;
+    color: #2f3640;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.cancelButton:hover {
+    background-color: #c8d6e5;
+}
